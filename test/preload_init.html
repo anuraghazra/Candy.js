@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Renderer.js</title>
+  <style>
+    * {
+      margin: 0;
+    }
+
+    canvas {
+      position: relative;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script src=".././lib/Candy.js"></script>
+
+  <script>
+    const c = new Candy();
+    c.createCanvas(800, 600);
+    c.resize(true);
+
+    let img = c.loadImage('../src/big_image.jpg');
+
+    let json = null;
+    c.loadJSON('../src/drawData.json', function (err, data) {
+      json = JSON.parse(data);
+    });
+
+    function preload() {
+      animate();
+    }
+
+    function animate() {
+      c.clear();
+
+      c.drawJSON(json)
+      c.image(img, 100, 100, 300, 200);
+
+      c.loop(animate);
+    }
+  </script>
+</body>
+
+</html>

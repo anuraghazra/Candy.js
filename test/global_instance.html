@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Renderer.js</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script src=".././lib/Candy.js"></script>
+
+
+  <script>
+    // INIT CANDY
+    const c = new Candy();
+    c.createCanvas(650, 350);
+
+    function animate() {
+      c.clear();
+
+      c.noFill();
+      c.rect(mouseX, 100, 100, 100);
+      
+      c.loop(animate);
+    }
+
+    function _animate() {
+      this.mouseX = 0;
+      this.mouseY = 0;
+      this.CANVAS_WIDTH = 0;
+      this.CANVAS_HEIGHT = 0;
+      window.addEventListener('mousemove', function (e) {
+        mouseX = e.offsetX;
+        mouseY = e.offsetY;
+      });
+
+      // BlendModes
+      this.ADD = 'lighter';
+      this.DIFFERENCE = 'difference';
+      this.EXCLUSION = 'exclusion';
+      this.SCREEN = 'screen';
+      this.XOR = 'xor';
+      this.COPY = 'copy';
+
+      this.SRC_OVER = 'source-over';
+      this.SRC_OUT = 'source-out';
+      this.SRC_IN = 'source-in';
+      this.SRC_TOP = 'source-atop';
+
+      this.DEST_OVER = 'destination-over';
+      this.DEST_OUT = 'destination-out';
+      this.DEST_IN = 'destination-in';
+      this.DEST_TOP = 'destination-atop';
+
+      // TEXT
+      this.CENTER = 'center';
+      this.MIDDLE = 'middle';
+    }
+
+    animate = animate.bind(_animate(), null);
+    animate();
+  </script>
+</body>
+
+</html>

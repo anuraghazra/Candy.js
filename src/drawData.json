@@ -1,0 +1,15 @@
+{
+  "noFill": true,
+  "stroke": ["red", "green", "blue"],
+  "strokeWeight" : 20,
+  "rect": [100, 100, 100, 100, 20],
+  "circle": [150, 150, 100],
+  
+  "noStroke" : true,
+  "fill-1" : "rgba(255,0,0,0.8)",
+  "rect-1" : [100,150,150,150,50],
+  
+  "stroke-2": ["red", "green", "blue"],
+  "fill-2" : "rgba(0,255,0,0.8)",
+  "rect-2" : [20,150,150,150,20]
+}
