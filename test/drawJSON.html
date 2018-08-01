@@ -25,17 +25,19 @@
     c.createCanvas(800, 600);
 
   let jsonData = {};
-    fetch('./drawData.json')
-      .then(res => res.text())
-      .then(data => {
-        jsonData = JSON.parse(data);
-      })
+  fetch('./src/drawData.json')
+    .then(res => res.text())
+    .then(data => {
+      jsonData = JSON.parse(data);
+    });
 
 
+
+    animate();
     function animate() {
       c.clear();
       
-      c.drawJSON(jsonData)
+      c.drawJSON(jsonData);
 
       c.loop(animate);
     }

@@ -4,6 +4,7 @@ c.createCanvas(650, 350);
 
 let x = 0;
 
+animate();
 function animate() {
   c.clear();
 
@@ -69,5 +70,7 @@ function animate() {
   c.textSize(50);
   c.text('Canvas', CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
   x++;
-  c.loop(animate)
+
+  
+  c.loop(animate);
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Candy.js</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- <canvas id="c"></canvas> -->
+
+  <script src="../lib/Candy.js"></script>
+
+  <script>
+    const c = new Candy();
+    c.createCanvas(600, 400);
+
+    let x = 100;
+    let y = 100;
+    function animate() {
+      c.clear(0);
+
+      c.rectMode(CENTER);
+      c.stroke(255);
+      c.rect(x, y, 100, 100, 50, 0, 0, 10);
+      c.circle(x, y, 5);
+
+      c.loop(animate);
+    }
+
+    animate();
+  </script>
+</body>
+
+</html>

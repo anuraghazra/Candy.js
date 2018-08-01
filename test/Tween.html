@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Renderer.js</title>
+  <title>Tween</title>
   <style>
     * {
       margin: 0;
@@ -24,31 +24,18 @@
     c.createCanvas(800, 600);
     c.resize(true);
 
-    let img = c.loadImage('./src/big_image.jpg');
-
-    let json = null;
-    c.loadJSON('./src/drawData.json', function(err, data) {
-      json = JSON.parse(data);
-    });
-
-    function preload() {
-      animate();
-    }
-
     let from = 0;
     let target = 300;
     function animate() {
       c.clear();
 
-      if (mouseDown) {
-        c.drawJSON(json);
-      }
+      from = tween(from, 250, 20);
 
-      from = tween(from, target, 20);
-      c.image(img, from, 100, 300, 200);
+      c.rect(from, 100, 100, 100);
 
       c.loop(animate);
     }
+    animate();
   </script>
 </body>
 
