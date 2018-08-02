@@ -23,11 +23,13 @@
     let x = 100;
     let y = 100;
     function animate() {
-      c.clear(0);
-
+      c.clear(255);
+      
       c.rectMode(CENTER);
-      c.stroke(255);
+      c.stroke(0);
+
       c.rect(x, y, 100, 100, 50, 0, 0, 10);
+      c.rect(x, 300, 100, 100, 50, 0, 0, 10);
       c.circle(x, y, 5);
 
       c.loop(animate);
