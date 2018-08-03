@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-  <title>Renderer.js</title>
+  <title>Candy.js</title>
   <style>
     * {
       margin: 0;
     }
 
     canvas {
-      position: relative;
+      position: absolute;
       border: 1px solid black;
     }
   </style>
@@ -24,30 +24,21 @@
     c.createCanvas(800, 600);
     c.resize(true);
 
-    let img = c.loadImage('./src/big_image.jpg');
-
-    let json = null;
-    c.loadJSON('./src/drawData.json', function(err, data) {
-      json = JSON.parse(data);
-    });
-
+    let img = c.loadImage('/Candy.js/test/src/big_image.jpg');
+    
     function preload() {
-      animate();
+      console.log('this is preload')
     }
+    // c.noLoop();
+    // c.loop();
 
-    let from = 0;
-    let target = 300;
-    function animate() {
+    function mygame() {
       c.clear();
 
-      if (mouseDown) {
-        c.drawJSON(json);
-      }
+      c.rect(mouseX, mouseY, 300, 200)
+      c.image(img, mouseX, mouseY, 300, 200);
 
-      from = tween(from, target, 20);
-      c.image(img, from, 100, 300, 200);
-
-      c.loop(animate);
+      c.loop(mygame);
     }
   </script>
 </body>
