@@ -1,0 +1,28 @@
+{
+  "name": "candyjs",
+  "version": "1.2.0",
+  "description": "JavaScript Canvas Rendering Engine Candy.js",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "browserify ./lib/Candy.js -o ./dist/Candy.build.js",
+    "watch": "watchify ./lib/Candy.js -o ./dist/Candy.build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anuraghazra/Candy.js.git"
+  },
+  "author": "AnuragHazra <hazru.anurag@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anuraghazra/Candy.js/issues"
+  },
+  "homepage": "https://github.com/anuraghazra/Candy.js#readme",
+  "dependencies": {
+    "browserify": "^16.2.2",
+    "watchify": "^3.11.0"
+  }
+}

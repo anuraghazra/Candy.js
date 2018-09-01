@@ -17,21 +17,22 @@
 
 <body>
 
-  <script src=".././lib/Candy.js"></script>
+  <script src="../dist/Candy.build.js"></script>
 
   <script>
     const c = new Candy();
     c.createCanvas(800, 600);
     c.resize(true);
 
-    let img = c.loadImage('/Candy.js/test/src/big_image.jpg');
+    let img = c.loadImage('./src/big_image.jpg');
     
     function preload() {
       console.log('this is preload')
+      mygame();
     }
-    // c.noLoop();
-    // c.loop();
-
+    c.noLoop();
+    c.loop();
+    
     function mygame() {
       c.clear();
 
