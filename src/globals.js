@@ -2,7 +2,7 @@
  * Global Utility
  */
 
-rgba = function(r, g, b, a) {
+global.rgba = function(r, g, b, a) {
   if (g === undefined) g = r;
   if (b === undefined) b = r;
   if (a === undefined) a = 1;
@@ -10,18 +10,18 @@ rgba = function(r, g, b, a) {
   return 'rgba(' + clamp(r, 0, 255) + ',' + clamp(g, 0, 255) + ',' + clamp(b, 0, 255) + ',' + clamp(a, 0, 1) + ')'
 }
 
-hsla = function(h, s, l, a) {
+global.hsla = function(h, s, l, a) {
   return 'hsla(' + h + 'deg, ' + clamp(s, 0, 100) + '%, ' + clamp(l, 0, 100) + '%, ' + ((a === undefined) ? 1 : a) + ')';
 };
 
-randomRGB = function() {
+global.randomRGB = function() {
   let r = randomInt(255);
   let g = randomInt(255);
   let b = randomInt(255);
   return rgba(r, g, b)
 }
 
-randomHSLA = function(a) {
+global.randomHSLA = function(a) {
   let h = randomInt(360);
   let s = randomInt(100);
   let l = randomInt(100);
@@ -29,29 +29,29 @@ randomHSLA = function(a) {
   return hsla(h, s, l, a);
 }
 
-radians = function radians(a) {
+global.radians = function radians(a) {
   return a * Math.PI/180;
 }
 
-norm = function(value, min, max) {
+global.norm = function(value, min, max) {
   return (value - min) / (max - min);
 }
 
-lerp = function(norm, min, max) {
+global.lerp = function(norm, min, max) {
   return (max - min) * norm + min;
 }
 
-map = function(value, sMin, sMax, dMin, dMax) {
+global.map = function(value, sMin, sMax, dMin, dMax) {
   return this.lerp(this.norm(value, sMin, sMax), dMin, dMax)
 }
 
-dist = function(px, py, qx, qy) {
+global.dist = function(px, py, qx, qy) {
   let dx = px - qx;
   let dy = py - qy;
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-random = function(min, max) {
+global.random = function(min, max) {
   if (max === undefined) {
     return Math.random() * (min === undefined ? 1 : min);
   } else {
@@ -59,21 +59,21 @@ random = function(min, max) {
   }
 }
 
-randomInt = function(min, max) {
+global.randomInt = function(min, max) {
   return Math.floor(min + Math.random() * (((max === undefined) ? 0 : max) - min + 1))
 }
 
-clamp = function(value, min, max) {
+global.clamp = function(value, min, max) {
   return Math.min(Math.max(value, Math.min(min, max)), Math.max(min, max));
 }
 
-tween = function(pos, target, speed) {
+global.tween = function(pos, target, speed) {
   if (speed == undefined) speed = 20;
   pos += (target - pos) / speed;
   return pos;
 }
 
-checkType = function(value, type) {
+global.checkType = function(value, type) {
   if (value === undefined) { return };
   if (typeof value === 'object') {
     let checkObjects = value.constructor.toString().toLowerCase().indexOf(type + '()');
@@ -91,7 +91,7 @@ checkType = function(value, type) {
   }
 }
 
-optional = function(value, optValue) {
+global.optional = function(value, optValue) {
   if (value === undefined) {
     value = optValue
   };
@@ -107,7 +107,7 @@ optional = function(value, optValue) {
  * @param {Object} r2
  * @returns {Boolean} !collides
  */
-intersects = function(r1, r2) {
+global.intersects = function(r1, r2) {
   let r1x = r1.x;
   let r1xw = r1.x + r1.width;
   let r1y = r1.y;
@@ -146,53 +146,53 @@ intersects = function(r1, r2) {
  */
 
 // Mouse Listeners //
-mouseX = 0;
-mouseY = 0;
-mouseDown = false;
+global.mouseX = 0;
+global.mouseY = 0;
+global.mouseDown = false;
 window.addEventListener('mousemove', function (e) {
-  mouseX = e.offsetX;
-  mouseY = e.offsetY;
+  global.mouseX = e.offsetX;
+  global.mouseY = e.offsetY;
 });
 window.addEventListener('mousedown', function () {
-  mouseDown = true;
+  global.mouseDown = true;
 });
 window.addEventListener('mouseup', function () {
-  mouseDown = false;
+  global.mouseDown = false;
 });
 
 // Keyboard Listeners //
-CURRENT_KEYS = {};
-KEY_W = 87;
-KEY_A = 65;
-KEY_S = 83;
-KEY_D = 68;
-KEY_SPACE = 32;
+global.CURRENT_KEYS = {};
+global.KEY_W = 87;
+global.KEY_A = 65;
+global.KEY_S = 83;
+global.KEY_D = 68;
+global.KEY_SPACE = 32;
 
-ARROW_UP = 38;
-ARROW_DOWN = 40;
-ARROW_LEFT = 37;
-ARROW_RIGHT = 39;
+global.ARROW_UP = 38;
+global.ARROW_DOWN = 40;
+global.ARROW_LEFT = 37;
+global.ARROW_RIGHT = 39;
 window.addEventListener('keydown', function (e) {
-  code = e.keyCode || e.which;
-  CURRENT_KEYS[code] = true;
+  global.code = e.keyCode || e.which;
+  global.CURRENT_KEYS[code] = true;
   if (window.onKeyPressed) {
-    onKeyPressed(code, e);
+    global.onKeyPressed(code, e);
   }
 })
 window.addEventListener('keyup', function (e) {
-  code = e.keyCode || e.which;
-  CURRENT_KEYS[code] = false;
+  global.code = e.keyCode || e.which;
+  global.CURRENT_KEYS[code] = false;
 })
 
 
 
-CANVAS_WIDTH = 0;
-CANVAS_HEIGHT = 0;
-WINDOW_WIDTH = 0;
-WINDOW_HEIGHT = 0;
+global.CANVAS_WIDTH = 0;
+global.CANVAS_HEIGHT = 0;
+global.WINDOW_WIDTH = 0;
+global.WINDOW_HEIGHT = 0;
 function getWindowSize() {
-  WINDOW_WIDTH = window.innerWidth - 6;
-  WINDOW_HEIGHT = window.innerHeight - 6;
+  global.WINDOW_WIDTH = window.innerWidth - 6;
+  global.WINDOW_HEIGHT = window.innerHeight - 6;
 }
 getWindowSize();
 window.addEventListener('resize', getWindowSize);
@@ -200,24 +200,24 @@ window.addEventListener('resize', getWindowSize);
 
 
 // BlendModes
-ADD = 'lighter';
-DIFFERENCE = 'difference';
-EXCLUSION = 'exclusion';
-SCREEN = 'screen';
-XOR = 'xor';
-COPY = 'copy';
+global.ADD = 'lighter';
+global.DIFFERENCE = 'difference';
+global.EXCLUSION = 'exclusion';
+global.SCREEN = 'screen';
+global.XOR = 'xor';
+global.COPY = 'copy';
 
-SRC_OVER = 'source-over';
-SRC_OUT = 'source-out';
-SRC_IN = 'source-in';
-SRC_TOP = 'source-atop';
+global.SRC_OVER = 'source-over';
+global.SRC_OUT = 'source-out';
+global.SRC_IN = 'source-in';
+global.SRC_TOP = 'source-atop';
 
-DEST_OVER = 'destination-over';
-DEST_OUT = 'destination-out';
-DEST_IN = 'destination-in';
-DEST_TOP = 'destination-atop';
+global.DEST_OVER = 'destination-over';
+global.DEST_OUT = 'destination-out';
+global.DEST_IN = 'destination-in';
+global.DEST_TOP = 'destination-atop';
 
 // TEXT
-CENTER = 'center';
-MIDDLE = 'middle';
-CORNER = 'corner';
+global.CENTER = 'center';
+global.MIDDLE = 'middle';
+global.CORNER = 'corner';
