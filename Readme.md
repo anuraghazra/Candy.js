@@ -5,6 +5,8 @@ JavaScript Canvas Rendering Engine Candy.js
 
 > Inspired by p5.js
 
+Check out cool demos [here](https://anuraghazra.github.io/CanvasFun/)
+
 
 ## Getting Started
 ```javascript
@@ -60,7 +62,6 @@ JavaScript Canvas Rendering Engine Candy.js
 
 > randomHSLA(a)
 
-
 > norm(value, min, max)
 
 > lerp(norm, min, max)
@@ -68,7 +69,6 @@ JavaScript Canvas Rendering Engine Candy.js
 > map(value, sMin, sMax, dMin, dMax)
 
 > dist(px, py, qx, qy)
-
     
 > intersects(r1, r2)
 
@@ -77,6 +77,5 @@ JavaScript Canvas Rendering Engine Candy.js
 > randomInt(min, max)
 
 > clamp(value, min, max)
-
 
 > tween(pos, target, speed)

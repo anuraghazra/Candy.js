@@ -1,3 +1,4 @@
+const Candy = require('./core');
 
 /**
  * @method Candy._parseColor()
@@ -32,3 +33,5 @@ Candy.prototype.keyIsPressed = function (key) {
   }
   return false;
 }
+
+module.exports = Candy;

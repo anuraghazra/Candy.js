@@ -5,7 +5,11 @@ module.exports = {
   devtool: 'source-map',
   output: {
     filename: 'Candy.build.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    library : 'Candy',
+    libraryTarget: 'umd',
+    globalObject: 'this',
   },
-  
+  // mode: 'development',
+  mode: 'production',
 };

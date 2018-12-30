@@ -1,7 +1,11 @@
 /**
- * Global Utility
+ * @method rgba()
+ * @global
+ * @param {String|Number} r 
+ * @param {String|Number?} g 
+ * @param {String|Number?} b 
+ * @param {String|Number?} a
  */
-
 global.rgba = function(r, g, b, a) {
   if (g === undefined) g = r;
   if (b === undefined) b = r;
@@ -10,47 +14,136 @@ global.rgba = function(r, g, b, a) {
   return 'rgba(' + clamp(r, 0, 255) + ',' + clamp(g, 0, 255) + ',' + clamp(b, 0, 255) + ',' + clamp(a, 0, 1) + ')'
 }
 
+/**
+ * @method rgb()
+ * @global
+ * @param {String|Number} r 
+ * @param {String|Number?} g 
+ * @param {String|Number?} b
+ */
+global.rgb = function(r, g, b) {
+  if (g === undefined) g = r;
+  if (b === undefined) b = r;
+  return 'rgb(' + clamp(r, 0, 255) + ',' + clamp(g, 0, 255) + ',' + clamp(b, 0, 255) + ')'
+}
+
+/**
+ * @method hsla()
+ * @global
+ * @param {Number} h 
+ * @param {Number} s 
+ * @param {Number} l
+ * @param {Number} a
+ */
 global.hsla = function(h, s, l, a) {
   return 'hsla(' + h + 'deg, ' + clamp(s, 0, 100) + '%, ' + clamp(l, 0, 100) + '%, ' + ((a === undefined) ? 1 : a) + ')';
 };
 
-global.randomRGB = function() {
-  let r = randomInt(255);
-  let g = randomInt(255);
-  let b = randomInt(255);
-  return rgba(r, g, b)
+/**
+ * @method hsl()
+ * @global
+ * @param {Number} h 
+ * @param {Number} s 
+ * @param {Number} l
+ */
+global.hsl = function(h, s, l) {
+  return 'hsl(' + h + 'deg, ' + clamp(s, 0, 100) + '%, ' + clamp(l, 0, 100) + '%)';
+};
+
+/**
+ * @method randomRGB()
+ * @global
+ * @param {Number?} _r
+ * @param {Number?} _g 
+ * @param {Number?} _g
+ */
+global.randomRGB = function(_r, _g, _b) {
+  let r = randomInt(_r || 255);
+  let g = randomInt(_g || 255);
+  let b = randomInt(_b || 255);
+  return rgb(r, g, b)
 }
 
-global.randomHSLA = function(a) {
-  let h = randomInt(360);
-  let s = randomInt(100);
-  let l = randomInt(100);
-  a = (a === undefined) ? 1 : a;
+/**
+ * @method randomHSLA()
+ * @global
+ * @param {Number?} _h
+ * @param {Number?} _s
+ * @param {Number?} _l
+ * @param {Number?} _a 
+ */
+global.randomHSLA = function(_h, _s, _l, _a) {
+  let h = randomInt(_h || 360);
+  let s = randomInt(_s || 100);
+  let l = randomInt(_l || 100);
+  let a = (_a === undefined) ? 1 : _a;
   return hsla(h, s, l, a);
 }
 
+/**
+ * @method radians()
+ * @global
+ * @param {Number?} a
+ */
 global.radians = function radians(a) {
   return a * Math.PI/180;
 }
 
+/**
+ * @method norm()
+ * @global
+ * @param {Number} value
+ * @param {Number} min
+ * @param {Number} max
+ */
 global.norm = function(value, min, max) {
   return (value - min) / (max - min);
 }
 
+/**
+ * @method lerp()
+ * @global
+ * @param {Number} value
+ * @param {Number} min
+ * @param {Number} max
+ */
 global.lerp = function(norm, min, max) {
   return (max - min) * norm + min;
 }
 
+/**
+ * @method map()
+ * @global
+ * @param {Number} value
+ * @param {Number} sMin
+ * @param {Number} sMax
+ * @param {Number} dMin
+ * @param {Number} dMax
+ */
 global.map = function(value, sMin, sMax, dMin, dMax) {
   return this.lerp(this.norm(value, sMin, sMax), dMin, dMax)
 }
 
+/**
+ * @method dist()
+ * @global
+ * @param {Number} px
+ * @param {Number} py
+ * @param {Number} qx
+ * @param {Number} qy
+ */
 global.dist = function(px, py, qx, qy) {
   let dx = px - qx;
   let dy = py - qy;
   return Math.sqrt(dx * dx + dy * dy);
 }
 
+/**
+ * @method random()
+ * @global
+ * @param {Number} min
+ * @param {Number} max
+ */
 global.random = function(min, max) {
   if (max === undefined) {
     return Math.random() * (min === undefined ? 1 : min);
@@ -59,20 +152,46 @@ global.random = function(min, max) {
   }
 }
 
+/**
+ * @method randomInt()
+ * @global
+ * @param {Number} min
+ * @param {Number} max
+ */
 global.randomInt = function(min, max) {
-  return Math.floor(min + Math.random() * (((max === undefined) ? 0 : max) - min + 1))
+  return Math.floor(random(min, max))
 }
 
+/**
+ * @method clamp()
+ * @global
+ * @param {Number} value
+ * @param {Number} min
+ * @param {Number} max
+ */
 global.clamp = function(value, min, max) {
   return Math.min(Math.max(value, Math.min(min, max)), Math.max(min, max));
 }
 
+/**
+ * @method tween()
+ * @global
+ * @param {Number} pos
+ * @param {Number} target
+ * @param {Number} speed
+ */
 global.tween = function(pos, target, speed) {
   if (speed == undefined) speed = 20;
   pos += (target - pos) / speed;
   return pos;
 }
 
+/**
+ * @method checkType()
+ * @global
+ * @param {*} value
+ * @param {*} type
+ */
 global.checkType = function(value, type) {
   if (value === undefined) { return };
   if (typeof value === 'object') {
@@ -91,6 +210,12 @@ global.checkType = function(value, type) {
   }
 }
 
+/**
+ * @method optional()
+ * @global
+ * @param {*} value
+ * @param {*} optValue
+ */
 global.optional = function(value, optValue) {
   if (value === undefined) {
     value = optValue

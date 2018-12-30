@@ -23,16 +23,17 @@
     let x = 100;
     let y = 100;
     function animate() {
-      c.clear(255);
+      c.clear();
       
       c.rectMode(CENTER);
       c.stroke(0);
 
+      c.fill(randomHSLA(0,0,50))
       c.rect(x, y, 100, 100, 50, 0, 0, 10);
       c.rect(x, 300, 100, 100, 50, 0, 0, 10);
       c.circle(x, y, 5);
 
-      c.loop(animate);
+      // c.loop(animate);
     }
 
     animate();

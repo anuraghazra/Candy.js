@@ -1,7 +1,7 @@
 /**
  * Candy.js
  * @version v1.6.0
- * @description Easy to use canvas renderer similar to p5.Renderer
+ * @description Easy to use canvas renderer similar
  * @constructor Candy()
  * @author Anurag Hazra <hazru.anurag@gmail.com>
  * @param {string?} canvas 
@@ -48,10 +48,11 @@ function Candy(canvas, width, height) {
 
 }
 
-/**
- * FUNCTIONAL PROTOTYPES /////////////////
- */
 
+/**
+ * @method Candy.trypreload();
+ * preloads all the resources
+ */
 Candy.prototype.trypreload = function() {
   if (window.preload || this.preload) {
     var timer = window.setInterval(function () {
@@ -66,6 +67,7 @@ Candy.prototype.trypreload = function() {
   }
 }
 
+
 /**
  * @method Candy.resize()
  * @param {Boolean} cull
@@ -77,10 +79,12 @@ Candy.prototype.resize = function (cull) {
   this.resizeCanvas(this.canvas, cull);
 }
 
+
 /**
  * @method Candy.createCanvas()
  * @param {Number} w 
  * @param {Number} h 
+ * creates a new Canvas Element with defined Width and Height
  */
 Candy.prototype.createCanvas = function (w, h) {
   this.canvas = document.createElement('canvas');
@@ -99,24 +103,33 @@ Candy.prototype.createCanvas = function (w, h) {
 /**
  * @method Candy.createScreenBuffer()
  * @param {String} name 
+ * @param {Number} width 
+ * @param {Number} height 
+ * creates a new screenBuffer Element with defined Width and Height
  */
-Candy.prototype.createScreenBuffer = function (name) {
+Candy.prototype.createScreenBuffer = function (name, width, height) {
   let canvas = document.createElement('canvas');
   canvas.id = 'CandyCanvasOffscreen-' + this.idIndex;
-  canvas.width = this.canvas.width;
-  canvas.height = this.canvas.height;
+  canvas.width = width || this.canvas.width;
+  canvas.height = height || this.canvas.height;
   // this.resizeCanvas(canvas);
   this.screenBuffers[name] = new Candy(canvas, canvas.width, canvas.height);
+  return this.screenBuffers[name];
 }
 
 /**
  * @method Candy.putScreenBuffer()
  * @param {imageData} data 
+ * puts the screenBuffer data into main canvas
  */
 Candy.prototype.putScreenBuffer = function (data) {
   this.ctx.drawImage(data.canvas, 0, 0);
 }
 
+/**
+ * @method Candy._initCanvas();
+ * fires window.animate callback when startup
+ */
 Candy.prototype._initCanvas = function () {
   window.addEventListener('DOMContentLoaded', function () {
     if (window.animate && this.fireCallback) {
@@ -125,6 +138,10 @@ Candy.prototype._initCanvas = function () {
   }.bind(this));
 }
 
+/**
+ * @method Candy.noLoop();
+ * stops animation loop
+ */
 Candy.prototype.noLoop = function () {
   this.animateLoop = false;
 }
@@ -132,6 +149,7 @@ Candy.prototype.noLoop = function () {
 /**
  * @method Candy.loop()
  * @param {Function} func 
+ * starts animation loop
  */
 Candy.prototype.loop = function (func) {
   if (this.animateLoop) {
@@ -150,6 +168,7 @@ Candy.prototype.loop = function (func) {
  * @method Candy.resizeCanvas()
  * @param {Element} canvas 
  * @param {Boolean} cull 
+ * resizes the canvas with 16:9 aspect ratio
  */
 Candy.prototype.resizeCanvas = function (canvas, cull) {
   let targetHeight = window.innerWidth * 9 / 16;
@@ -177,6 +196,4 @@ Candy.prototype.resizeCanvas = function (canvas, cull) {
   }
 }
 
-
-global.Candy = Candy;
 module.exports = Candy;

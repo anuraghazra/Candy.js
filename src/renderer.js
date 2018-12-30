@@ -1,3 +1,5 @@
+const Candy = require('./core');
+
 /**
  * @method Candy.noFill()
  */
@@ -472,3 +474,5 @@ Candy.prototype.noSmooth = function () {
     this.ctx.imageSmoothingEnabled = false;
   }
 }
+
+module.exports = Candy;

@@ -23,20 +23,20 @@
     const c = new Candy();
     c.createCanvas(800, 600);
 
-    c.createScreenBuffer('os');
-    
+    let osc = c.createScreenBuffer('os');
+
     let r = randomRGB();
     
     animate();
     function animate() {
       c.clear();
       
-      c.screenBuffers.os.clear(rgb(255,255,255,0.05));
-      c.screenBuffers.os.fill(['deepskyblue', 'crimson', 'purple']);
-      c.screenBuffers.os.noStroke();
-      c.screenBuffers.os.rect(mouseX-50, mouseY-50, 100, 100, 50);
+      osc.clear(rgba(255,255,255,0.05));
+      osc.fill(['deepskyblue', 'crimson', 'purple']);
+      osc.noStroke();
+      osc.rect(mouseX-50, mouseY-50, 100, 100, 50);
 
-      c.putScreenBuffer(c.screenBuffers.os);
+      c.putScreenBuffer(osc);
 
       c.noFill();
       c.rect(mouseX - 50, mouseY - 50, 100, 100, 50);

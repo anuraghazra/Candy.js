@@ -1,6 +1,9 @@
+const Candy = require('./core');
+
 /**
  * @method Candy.loadImage()
  * @param {String} url 
+ * @return HTMLImageElement
  */
 Candy.prototype.loadImage = function (url) {
   this.resCount++;
@@ -12,7 +15,9 @@ Candy.prototype.loadImage = function (url) {
 
 /**
  * @method Candy.loadJSON()
- * @param {String} url 
+ * @param {String} url
+ * @param {Function} callback
+ * loads a JSON file
  */
 Candy.prototype.loadJSON = function (url, callback) {
   this.resCount++;
@@ -34,6 +39,7 @@ Candy.prototype.loadJSON = function (url, callback) {
 /**
  * @method Candy.drawJSON()
  * @param {JSON} json 
+ * draws a JSON file
  */
 Candy.prototype.drawJSON = function (json) {
   for (const i in json) {
@@ -57,3 +63,5 @@ Candy.prototype.drawJSON = function (json) {
     }
   }
 }
+
+module.exports = Candy;
