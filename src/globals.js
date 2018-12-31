@@ -316,8 +316,8 @@ global.CANVAS_HEIGHT = 0;
 global.WINDOW_WIDTH = 0;
 global.WINDOW_HEIGHT = 0;
 function getWindowSize() {
-  global.WINDOW_WIDTH = window.innerWidth - 6;
-  global.WINDOW_HEIGHT = window.innerHeight - 6;
+  global.WINDOW_WIDTH = window.innerWidth;
+  global.WINDOW_HEIGHT = window.innerHeight;
 }
 getWindowSize();
 window.addEventListener('resize', getWindowSize);

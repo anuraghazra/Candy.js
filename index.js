@@ -6,7 +6,6 @@ const c = new Candy();
 c.createCanvas(WINDOW_WIDTH, WINDOW_HEIGHT);
 c.clear(25);
 
-
 c.blendMode(ADD);
 c.shadow(0, 0, 20, rgba(255,255,255,0.8));
 c.noStroke();

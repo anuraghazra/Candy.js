@@ -79,6 +79,13 @@ Candy.prototype.resize = function (cull) {
   this.resizeCanvas(this.canvas, cull);
 }
 
+/**
+ * @method Candy.fullScreen()
+ */
+Candy.prototype.fullScreen = function () {
+  this.canvas.width = WINDOW_WIDTH-2;
+  this.canvas.height = WINDOW_HEIGHT-2;
+}
 
 /**
  * @method Candy.createCanvas()
