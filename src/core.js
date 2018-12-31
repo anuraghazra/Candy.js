@@ -82,9 +82,10 @@ Candy.prototype.resize = function (cull) {
 /**
  * @method Candy.fullScreen()
  */
-Candy.prototype.fullScreen = function () {
-  this.canvas.width = WINDOW_WIDTH-2;
-  this.canvas.height = WINDOW_HEIGHT-2;
+Candy.prototype.fullScreen = function (offset) {
+  offset = (offset === undefined) ? 4 : offset;
+  this.canvas.width = WINDOW_WIDTH-offset;
+  this.canvas.height = WINDOW_HEIGHT-offset;
 }
 
 /**
