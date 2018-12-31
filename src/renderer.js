@@ -290,7 +290,6 @@ Candy.prototype.close = function () {
  * @param {Number} y
  */
 Candy.prototype.from = function (x, y) {
-  console.log(typeof x)
   if (typeof x === 'object') {
     this.ctx.moveTo(x.x, x.y)
   }
