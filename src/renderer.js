@@ -344,22 +344,27 @@ Candy.prototype.image = function (img, sx, sy, sw, sh, dx, dy, dw, dh) {
 /**
  * @method Candy.textAlign()
  * @param {String} value
+ * @chainable
  */
 Candy.prototype.textAlign = function (value) {
   this.ctx.textAlign = value;
+  return this;
 }
 
 /**
  * @method Candy.textBaseline()
  * @param {String} value
+ * @chainable
  */
 Candy.prototype.textBaseline = function (value) {
   this.ctx.textBaseline = value;
+  return this;
 }
 
 /**
  * @method Candy.textFont()
  * @param {String} value
+ * @chainable
  */
 Candy.prototype.textFont = function (font) {
   this.font[1] = font;
@@ -369,6 +374,7 @@ Candy.prototype.textFont = function (font) {
 /**
  * @method Candy.textSize()
  * @param {Number} value
+ * @chainable
  */
 Candy.prototype.textSize = function (size) {
   this.font[0] = size + 'px';
@@ -382,6 +388,7 @@ Candy.prototype.textSize = function (size) {
  * @param {Number} y
  * @param {Number} w
  * @param {Number} h
+ * @chainable
  */
 Candy.prototype.text = function (str, x, y, w, h) {
   // this.ctx.textAlign = 'end';
@@ -412,6 +419,7 @@ Candy.prototype.alpha = function (value) {
  * @method Candy.translate()
  * @param {Number} x
  * @param {Number} y
+ * @chainable
  */
 Candy.prototype.translate = function (x, y) {
   if (y === undefined) { y = x }
@@ -422,9 +430,23 @@ Candy.prototype.translate = function (x, y) {
 /**
  * @method Candy.rotate()
  * @param {Number} deg
+ * @chainable
  */
 Candy.prototype.rotate = function (deg) {
   this.ctx.rotate(deg);
+  return this;
+}
+
+/**
+ * @method Candy.scale()
+ * @param {Number} x
+ * @param {Number} y
+ * @chainable
+ */
+Candy.prototype.scale = function (x, y) {
+  if (x === undefined) x = 1.0;
+  if (y === undefined) y = x;
+  this.ctx.scale(x, y);
   return this;
 }
 
@@ -433,6 +455,7 @@ Candy.prototype.rotate = function (deg) {
  * @param {Number} x
  * @param {Number} y
  * @param {Number} deg
+ * @chainable
  */
 Candy.prototype.transRot = function (x, y, deg) {
   this.ctx.translate(x, y);
@@ -472,6 +495,90 @@ Candy.prototype.noSmooth = function () {
   if ('imageSmoothingEnabled' in this.ctx) {
     this.ctx.imageSmoothingEnabled = false;
   }
+}
+
+/**
+ * @method Candy.loadPixels()
+ * @param {Number?} x
+ * @param {Number?} y
+ * @param {Number?} width
+ * @param {Number?} height
+ * @return {Object}
+ */
+Candy.prototype.loadPixels = function(x, y, width, height) {
+  let imagedata;
+  if (x === undefined) x = 0;
+  if (y === undefined) y = 0;
+  if (width === undefined) width = CANVAS_WIDTH;
+  if (height === undefined) height = CANVAS_HEIGHT;
+  if (x instanceof CanvasRenderingContext2D) {
+    imagedata = x.getImageData(0, 0, width, height);
+    return {imageData : imagedata, pixels : imagedata.data};
+  }
+  imagedata = this.ctx.getImageData(x, y, width, height);
+
+  this.imageData = imagedata;
+  this.pixels = imagedata.data;
+
+  return {imageData : imagedata, pixels : imagedata.data};
+}
+
+
+/**
+ * @method Candy.updatePixels()
+ * @param {CanvasRenderingContext2D?} ctx 
+ * @param {ImageData?} imagedata 
+ * @param {Number?} x 
+ * @param {Number?} y 
+ * @param {Number?} dx 
+ * @param {Number?} dy 
+ * @param {Number?} dw 
+ * @param {Number?} dh 
+ */
+Candy.prototype.updatePixels = function(ctx, imagedata, x, y, dx, dy, dw, dh) {
+  if (x === undefined) x = 0;
+  if (y === undefined) y = 0;
+  if (dx === undefined) dx = 0;
+  if (dy === undefined) dy = 0;
+  if (dw === undefined) dw = this.canvas.width;
+  if (dh === undefined) dh = this.canvas.height;
+  if (ctx instanceof CanvasRenderingContext2D && imagedata !== undefined) {
+    ctx.putImageData(imagedata, x, y, w, h, 0, 0);
+  } else {
+    this.ctx.putImageData(this.imageData, x, y, dx, dy, dw, dh);
+  }
+}
+
+/**
+ * @method Candy.setPixelColor()
+ * @param {Number} x
+ * @param {Number} y
+ * @param {Array} rgba
+ * calculates the xy indices 
+ */
+Candy.prototype.setPixelXYColor = function(x, y, rgba, pxl) {
+  let index = (x+y*this.canvas.width)*4;
+  this.setPixelArrayColor(index, rgba, pxl);
+}
+/**
+ * @method Candy.setPixelArrayColor()
+ * @param {Number} index
+ * @param {Array} rgba
+ * just takes the calculated xy position 
+ */
+Candy.prototype.setPixelArrayColor = function(index, rgba, pixels) {
+  let pxl;
+  if (pixels !== undefined) {
+    pxl = pixels;
+  } else {
+    pxl = this.pixels;
+  }
+  if (pxl.length < 1) throw new Error('loadPixels() is not called')
+  pxl[index + 0] = rgba[0];
+  pxl[index + 1] = rgba[1];
+  pxl[index + 2] = rgba[2];
+  pxl[index + 3] = rgba[3] || 255;
+  return pxl;
 }
 
 module.exports = Candy;

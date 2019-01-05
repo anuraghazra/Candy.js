@@ -139,6 +139,20 @@ global.dist = function(px, py, qx, qy) {
 }
 
 /**
+ * @method distSq()
+ * @global
+ * @param {Number} px
+ * @param {Number} py
+ * @param {Number} qx
+ * @param {Number} qy
+ */
+global.distSq = function(px, py, qx, qy) {
+  let dx = px - qx;
+  let dy = py - qy;
+  return (dx * dx + dy * dy);
+}
+
+/**
  * @method random()
  * @global
  * @param {Number} min

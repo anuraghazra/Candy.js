@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "watch" : "webpack -w"
   },
   "repository": {
     "type": "git",

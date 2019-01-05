@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Candy.js pixels</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script src="/dist/Candy.build.js"></script>
+
+  <script>
+    let c = new Candy();
+    c.createCanvas(400, 400);
+    c.fullScreen();
+
+    window.onload = function () {
+
+
+      let osc = c.createScreenBuffer('osc');
+      // osc.loadPixels();
+      console.log(osc.pixels);
+
+      function animate() {
+        c.clear(0);
+
+        // loading offscreen canvas pixels
+        osc.loadPixels();
+        for (let x = 0; x < CANVAS_WIDTH; x++) {
+          for (let y = 0; y < CANVAS_HEIGHT; y++) {
+            let index = (x + y * CANVAS_WIDTH) * 4;
+            let d = dist(x, y, CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
+            let sum = 30 * 40 / d;
+            let color = [
+              Math.cos(-sum*0.5) * (sum-x),
+              Math.sin(-sum*0.9) * (sum+y),
+              Math.sin(-sum*0.9) * (sum+y),
+            ]
+            osc.setPixelArrayColor(index, color);
+          }
+        }
+        osc.updatePixels();
+
+        c.putScreenBuffer(osc);
+        c.loop(animate);
+      }
+      animate();
+    }
+
+  </script>
+</body>
+
+</html>

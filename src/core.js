@@ -39,6 +39,10 @@ function Candy(canvas, width, height) {
   this.font = ['24px', 'Arial'];
   this.animateLoop = true;
 
+  // pixels
+  this.pixels = [];
+  this.imageData = null;
+
   this.preload = function(){return null};
 
 
