@@ -79,3 +79,5 @@ Check out cool demos [here](https://anuraghazra.github.io/CanvasFun/)
 > clamp(value, min, max)
 
 > tween(pos, target, speed)
+
+Made With :heart: In Javascript 
