@@ -119,6 +119,13 @@ Candy.prototype.radialGradient = function (x, y, innerRadius, outerRadius, color
   return grad;
 }
 
+/**
+ * @method Candy.shadow();
+ * @param {Number} x
+ * @param {Number} y
+ * @param {Number} blur
+ * @param {String} color
+ */
 Candy.prototype.shadow = function (x, y, blur, color) {
   this.ctx.shadowColor = color || "rgba(100,100,100,.4)";
   this.ctx.shadowOffsetX = x || 0;
@@ -126,6 +133,13 @@ Candy.prototype.shadow = function (x, y, blur, color) {
   this.ctx.shadowBlur = blur || 0;
 }
 
+/**
+ * @method Candy.noShadow();
+ * @param {Number} x
+ * @param {Number} y
+ * @param {Number} blur
+ * @param {String} color
+ */
 Candy.prototype.noShadow = function () {
   this.ctx.shadowColor = "rgba(0, 0, 0, 0)";
   this.ctx.shadowOffsetX = 0;
@@ -162,6 +176,10 @@ Candy.prototype.clear = function (r, g, b, a) {
   }
 }
 
+/**
+ * @method Candy.rectMode();
+ * @param {String} mode
+ */
 Candy.prototype.rectMode = function (mode) {
   this.rectmode = mode;
 }
