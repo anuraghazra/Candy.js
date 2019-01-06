@@ -119,14 +119,14 @@ Candy.prototype.radialGradient = function (x, y, innerRadius, outerRadius, color
   return grad;
 }
 
-Candy.prototype.shadow = function(x, y, blur, color) {
+Candy.prototype.shadow = function (x, y, blur, color) {
   this.ctx.shadowColor = color || "rgba(100,100,100,.4)";
   this.ctx.shadowOffsetX = x || 0;
   this.ctx.shadowOffsetY = y || 0;
   this.ctx.shadowBlur = blur || 0;
 }
 
-Candy.prototype.noShadow = function() {
+Candy.prototype.noShadow = function () {
   this.ctx.shadowColor = "rgba(0, 0, 0, 0)";
   this.ctx.shadowOffsetX = 0;
   this.ctx.shadowOffsetY = 0;
@@ -182,16 +182,16 @@ Candy.prototype.rect = function (x, y, w, h, tl, tr, br, bl) {
   if (tr === undefined) { tr = tl };
   if (br === undefined) { br = tr };
   if (bl === undefined) { bl = br };
-  let hw = w/2;
-  let hh = h/2;
+  let hw = w / 2;
+  let hh = h / 2;
   if (tl) {
     this.ctx.beginPath();
     if (this.rectmode === 'center') {
-      this.ctx.moveTo(x-hw + tl, y-hh);
-      this.ctx.arcTo(x-hw + w, y-hh, x-hw + w, y-hh + h, tr);
-      this.ctx.arcTo(x-hw + w, y-hh + h, x-hw, y-hh + h, br);
-      this.ctx.arcTo(x-hw, y-hh + h, x-hw, y-hh, bl);
-      this.ctx.arcTo(x-hw, y-hh, x-hw + w, y-hh, tl);
+      this.ctx.moveTo(x - hw + tl, y - hh);
+      this.ctx.arcTo(x - hw + w, y - hh, x - hw + w, y - hh + h, tr);
+      this.ctx.arcTo(x - hw + w, y - hh + h, x - hw, y - hh + h, br);
+      this.ctx.arcTo(x - hw, y - hh + h, x - hw, y - hh, bl);
+      this.ctx.arcTo(x - hw, y - hh, x - hw + w, y - hh, tl);
     } else {
       this.ctx.moveTo(x + tl, y);
       this.ctx.arcTo(x + w, y, x + w, y + h, tr);
@@ -504,23 +504,17 @@ Candy.prototype.noSmooth = function () {
  * @param {Number?} width
  * @param {Number?} height
  * @return {Object}
+ * 
  */
-Candy.prototype.loadPixels = function(x, y, width, height) {
-  let imagedata;
-  if (x === undefined) x = 0;
-  if (y === undefined) y = 0;
-  if (width === undefined) width = CANVAS_WIDTH;
-  if (height === undefined) height = CANVAS_HEIGHT;
-  if (x instanceof CanvasRenderingContext2D) {
-    imagedata = x.getImageData(0, 0, width, height);
-    return {imageData : imagedata, pixels : imagedata.data};
-  }
-  imagedata = this.ctx.getImageData(x, y, width, height);
+Candy.prototype.loadPixels = function (width, height) {
+  if (width === undefined) width = this.canvas.width;
+  if (height === undefined) height = this.canvas.height;
+  let imagedata = this.ctx.getImageData(0, 0, width, height);
 
   this.imageData = imagedata;
   this.pixels = imagedata.data;
 
-  return {imageData : imagedata, pixels : imagedata.data};
+  return { imageData: imagedata, pixels: imagedata.data };
 }
 
 
@@ -535,18 +529,14 @@ Candy.prototype.loadPixels = function(x, y, width, height) {
  * @param {Number?} dw 
  * @param {Number?} dh 
  */
-Candy.prototype.updatePixels = function(ctx, imagedata, x, y, dx, dy, dw, dh) {
-  if (x === undefined) x = 0;
-  if (y === undefined) y = 0;
-  if (dx === undefined) dx = 0;
-  if (dy === undefined) dy = 0;
-  if (dw === undefined) dw = this.canvas.width;
-  if (dh === undefined) dh = this.canvas.height;
-  if (ctx instanceof CanvasRenderingContext2D && imagedata !== undefined) {
-    ctx.putImageData(imagedata, x, y, w, h, 0, 0);
-  } else {
-    this.ctx.putImageData(this.imageData, x, y, dx, dy, dw, dh);
+Candy.prototype.updatePixels = function (x, y, w, h) {
+  if (x === undefined && y === undefined && w === undefined && h === undefined) {
+    x = 0;
+    y = 0;
+    w = this.canvas.width;
+    h = this.canvas.height;
   }
+  this.ctx.putImageData(this.imageData, x, y, 0, 0, w, h);
 }
 
 /**
@@ -556,8 +546,8 @@ Candy.prototype.updatePixels = function(ctx, imagedata, x, y, dx, dy, dw, dh) {
  * @param {Array} rgba
  * calculates the xy indices 
  */
-Candy.prototype.setPixelXYColor = function(x, y, rgba, pxl) {
-  let index = (x+y*this.canvas.width)*4;
+Candy.prototype.setPixelXYColor = function (x, y, rgba, pxl) {
+  let index = (x + y * this.canvas.width) * 4;
   this.setPixelArrayColor(index, rgba, pxl);
 }
 /**
@@ -566,7 +556,7 @@ Candy.prototype.setPixelXYColor = function(x, y, rgba, pxl) {
  * @param {Array} rgba
  * just takes the calculated xy position 
  */
-Candy.prototype.setPixelArrayColor = function(index, rgba, pixels) {
+Candy.prototype.setPixelArrayColor = function (index, rgba, pixels) {
   let pxl;
   if (pixels !== undefined) {
     pxl = pixels;

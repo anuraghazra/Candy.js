@@ -1,6 +1,6 @@
 /**
  * Candy.js
- * @version v1.6.0
+ * @version v1.6.1
  * @description Easy to use canvas renderer similar
  * @constructor Candy()
  * @author Anurag Hazra <hazru.anurag@gmail.com>
